@@ -1,123 +1,125 @@
-CREATE TABLE IF NOT EXISTS users
+CREATE TABLE IF NOT EXISTS USERS
 (
-    id         TEXT PRIMARY KEY,
-    first_name TEXT,
-    last_name  TEXT,
-    email      TEXT,
-    password   TEXT,
-    type       TEXT,
-    created_by TEXT,
-    updated_by TEXT,
-    created_on date,
-    updated_on date
+    ID         TEXT PRIMARY KEY,
+    FIRST_NAME TEXT,
+    LAST_NAME  TEXT,
+    EMAIL      TEXT,
+    PASSWORD   TEXT,
+    TYPE       TEXT,
+    CREATED_BY TEXT,
+    UPDATED_BY TEXT,
+    CREATED_ON DATE,
+    UPDATED_ON DATE
 );
 
-CREATE TABLE IF NOT EXISTS classes
+CREATE TABLE IF NOT EXISTS CLASSES
 (
-    id          TEXT PRIMARY KEY,
-    description TEXT,
-    prof_id     TEXT references users (id),
-    created_by  TEXT,
-    updated_by  TEXT,
-    created_on  date,
-    updated_on  date
+    ID          TEXT PRIMARY KEY,
+    DESCRIPTION TEXT,
+    PROF_ID     TEXT REFERENCES USERS (ID),
+    CREATED_BY  TEXT,
+    UPDATED_BY  TEXT,
+    CREATED_ON  DATE,
+    UPDATED_ON  DATE
 );
 
-CREATE TABLE IF NOT EXISTS class_students
+CREATE TABLE IF NOT EXISTS CLASS_STUDENTS
 (
-    ID         text PRIMARY KEY,
-    student_id TEXT REFERENCES users (id),
-    class_id   TEXT REFERENCES classes (id),
-    created_by TEXT,
-    updated_by TEXT,
-    created_on date,
-    updated_on date,
-    UNIQUE (student_id, class_id)
+    ID         TEXT PRIMARY KEY,
+    STUDENT_ID TEXT REFERENCES USERS (ID),
+    CLASS_ID   TEXT REFERENCES CLASSES (ID),
+    CREATED_BY TEXT,
+    UPDATED_BY TEXT,
+    CREATED_ON DATE,
+    UPDATED_ON DATE,
+    UNIQUE (STUDENT_ID, CLASS_ID)
 );
 
-CREATE TABLE IF NOT EXISTS assignments
+CREATE TABLE IF NOT EXISTS ASSIGNMENTS
 (
-    id           TEXT PRIMARY KEY,
-    class_id     TEXT REFERENCES classes (id) not null,
-    question     TEXT                         not null,
-    no_of_groups int,
-    created_by   TEXT,
-    updated_by   TEXT,
-    created_on   date,
-    updated_on   date
+    ID           TEXT PRIMARY KEY,
+    CLASS_ID     TEXT REFERENCES CLASSES (ID) NOT NULL,
+    QUESTION     TEXT                         NOT NULL,
+    NO_OF_GROUPS INT,
+    CREATED_BY   TEXT,
+    UPDATED_BY   TEXT,
+    CREATED_ON   DATE,
+    UPDATED_ON   DATE
 );
 
-CREATE TABLE IF NOT EXISTS groups
+CREATE TABLE IF NOT EXISTS GROUPS
 (
-    id            text PRIMARY KEY,
-    group_id      TEXT not null,
-    assignment_id TEXT not null REFERENCES assignments (id),
-    answer        TEXT,
-    active        boolean,
-    created_by    TEXT,
-    updated_by    TEXT,
-    created_on    date,
-    updated_on    date,
-    UNIQUE (assignment_id, group_id)
+    ID            TEXT PRIMARY KEY,
+    GROUP_ID      TEXT NOT NULL,
+    ASSIGNMENT_ID TEXT NOT NULL REFERENCES ASSIGNMENTS (ID),
+    ANSWER        TEXT,
+    ACTIVE        BOOLEAN,
+    CREATED_BY    TEXT,
+    UPDATED_BY    TEXT,
+    CREATED_ON    DATE,
+    UPDATED_ON    DATE,
+    UNIQUE (ASSIGNMENT_ID, GROUP_ID)
 );
 
-CREATE TABLE IF NOT EXISTS group_students
+CREATE TABLE IF NOT EXISTS GROUP_STUDENTS
 (
-    group_id   TEXT REFERENCES groups (ID) not null,
-    student_id TEXT REFERENCES users (id)  not null,
-    created_by TEXT,
-    updated_by TEXT,
-    created_on date,
-    updated_on date,
-    UNIQUE (student_id, group_id)
+    ID         TEXT PRIMARY KEY,
+    GROUP_ID   TEXT REFERENCES GROUPS (ID) NOT NULL,
+    STUDENT_ID TEXT REFERENCES USERS (ID)  NOT NULL,
+    CREATED_BY TEXT,
+    UPDATED_BY TEXT,
+    CREATED_ON DATE,
+    UPDATED_ON DATE,
+    UNIQUE (STUDENT_ID, GROUP_ID)
 );
 
-CREATE TABLE IF NOT EXISTS group_gas
+CREATE TABLE IF NOT EXISTS GROUP_GAS
 (
-    group_id   TEXT REFERENCES groups (ID) not null,
-    ga_id      text REFERENCES users (id)  not null,
-    active     boolean                     not null,
-    created_by TEXT,
-    updated_by TEXT,
-    created_on date,
-    updated_on date,
-    UNIQUE (ga_id, group_id)
+    ID         TEXT PRIMARY KEY,
+    GROUP_ID   TEXT REFERENCES GROUPS (ID) NOT NULL,
+    GA_ID      TEXT REFERENCES USERS (ID)  NOT NULL,
+    ACTIVE     BOOLEAN                     NOT NULL,
+    CREATED_BY TEXT,
+    UPDATED_BY TEXT,
+    CREATED_ON DATE,
+    UPDATED_ON DATE,
+    UNIQUE (GA_ID, GROUP_ID)
 );
 
-CREATE TABLE IF NOT EXISTS group_discussions
+CREATE TABLE IF NOT EXISTS GROUP_DISCUSSIONS
 (
-    id         text primary key,
-    group_id   TEXT REFERENCES groups (ID) not null,
-    chat       TEXT                        not null,
-    created_by TEXT                        NOT NULL,
-    created_on date                        NOT NULL
+    ID         TEXT PRIMARY KEY,
+    GROUP_ID   TEXT REFERENCES GROUPS (ID) NOT NULL,
+    CHAT       TEXT                        NOT NULL,
+    CREATED_BY TEXT                        NOT NULL,
+    CREATED_ON DATE                        NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS assignment_answer
+CREATE TABLE IF NOT EXISTS ASSIGNMENT_ANSWER
 (
-    id               text primary key,
-    group_id         TEXT REFERENCES groups (ID) not null,
-    answer           TEXT                        not null,
-    student_approved boolean,
-    ga_approved      boolean,
-    created_by       TEXT                        NOT NULL,
-    created_on       date                        NOT NULL
+    ID               TEXT PRIMARY KEY,
+    GROUP_ID         TEXT REFERENCES GROUPS (ID) NOT NULL,
+    ANSWER           TEXT                        NOT NULL,
+    STUDENT_APPROVED BOOLEAN,
+    GA_APPROVED      BOOLEAN,
+    CREATED_BY       TEXT                        NOT NULL,
+    CREATED_ON       DATE                        NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS student_approved_answer
+CREATE TABLE IF NOT EXISTS STUDENT_APPROVED_ANSWER
 (
-    id         text primary key,
-    answer     TEXT REFERENCES assignment_answer (ID) not null,
-    student_id text references users (id)             not null,
-    accepted   boolean                                not null,
-    created_on date                                   NOT NULL
+    ID         TEXT PRIMARY KEY,
+    ANSWER     TEXT REFERENCES ASSIGNMENT_ANSWER (ID) NOT NULL,
+    STUDENT_ID TEXT REFERENCES USERS (ID)             NOT NULL,
+    ACCEPTED   BOOLEAN                                NOT NULL,
+    CREATED_ON DATE                                   NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS ga_approved_answer
+CREATE TABLE IF NOT EXISTS GA_APPROVED_ANSWER
 (
-    id         text primary key,
-    answer     TEXT REFERENCES assignment_answer (ID) not null,
-    ga_id      text references users (id)             not null,
-    accepted   boolean                                not null,
-    created_on date                                   NOT NULL
+    ID         TEXT PRIMARY KEY,
+    ANSWER     TEXT REFERENCES ASSIGNMENT_ANSWER (ID) NOT NULL,
+    GA_ID      TEXT REFERENCES USERS (ID)             NOT NULL,
+    ACCEPTED   BOOLEAN                                NOT NULL,
+    CREATED_ON DATE                                   NOT NULL
 );
