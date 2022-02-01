@@ -1,4 +1,4 @@
-package org.valparaiso.chatengine;
+package org.comps;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
