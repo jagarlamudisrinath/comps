@@ -1,80 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>DATABASE</ID>
-  <OriginalElement>9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.assignment_answer</OriginalElement>
+  <OriginalElement>9870b92b-72a3-466b-8aa2-ac0b8b31514b.DATABASE:chat_engine</OriginalElement>
   <nodes>
-    <node x="193.0963985415582" y="727.2371456209539">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.group_discussions</node>
-    <node x="524.0" y="727.2371456209539">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.group_gas</node>
-    <node x="-36.29107252111629" y="230.6690229927822">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.class_students</node>
-    <node x="204.5963985415582" y="487.0">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.group_students</node>
-    <node x="220.5963985415582" y="230.66902299278217">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.classes</node>
-    <node x="493.0" y="218.66902299278215">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.assignments</node>
-    <node x="775.0" y="439.0">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.assignment_answer</node>
-    <node x="500.5" y="463.0">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.groups</node>
-    <node x="1084.820373539698" y="463.0">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.ga_approved_answer</node>
-    <node x="749.0" y="727.2371456209539">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.student_approved_answer</node>
-    <node x="225.00381820421228" y="9.1932504002956">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.users</node>
+    <node x="281.1095732410613" y="776.1672433679355">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.group_discussions</node>
+    <node x="-285.75317185697804" y="346.1833910034602">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.class_students</node>
+    <node x="9.678200692041628" y="322.1833910034602">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.classes</node>
+    <node x="-69.84544405997701" y="503.00922722029986">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.group_students</node>
+    <node x="281.1095732410613" y="322.1833910034602">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.assignments</node>
+    <node x="554.4567474048444" y="503.00922722029986">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.assignment_answer</node>
+    <node x="551.9567474048444" y="776.1672433679355">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.ga_approved_answer</node>
+    <node x="288.6095732410613" y="527.0092272202999">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.groups</node>
+    <node x="11.678200692041514" y="70.46020761245676">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.users</node>
+    <node x="847.3333333333334" y="527.0092272202999">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.student_approved_answer</node>
+    <node x="325.0" y="82.46020761245678">9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.events</node>
   </nodes>
   <notes />
   <edges>
     <edge source="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.classes" target="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.users" relationship="REFERENCES">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="-5.017501946023458" y="-0.0" />
+      <point x="-5.017501946023458" y="-0.0" />
     </edge>
     <edge source="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.ga_approved_answer" target="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.assignment_answer" relationship="REFERENCES">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
-    </edge>
-    <edge source="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.group_gas" target="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.groups" relationship="REFERENCES">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="0.0" y="-0.0" />
+      <point x="0.0" y="-0.0" />
     </edge>
     <edge source="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.groups" target="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.assignments" relationship="REFERENCES">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="0.0" y="-0.0" />
+      <point x="0.0" y="-0.0" />
     </edge>
     <edge source="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.class_students" target="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.classes" relationship="REFERENCES">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="0.0" y="-0.0" />
+      <point x="0.0" y="-0.0" />
     </edge>
     <edge source="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.group_students" target="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.groups" relationship="REFERENCES">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
-    </edge>
-    <edge source="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.class_students" target="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.users" relationship="REFERENCES">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
-    </edge>
-    <edge source="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.assignment_answer" target="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.groups" relationship="REFERENCES">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="0.0" y="-0.0" />
+      <point x="0.0" y="-0.0" />
     </edge>
     <edge source="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.assignments" target="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.classes" relationship="REFERENCES">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="0.0" y="-0.0" />
+      <point x="0.0" y="-0.0" />
+    </edge>
+    <edge source="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.class_students" target="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.users" relationship="REFERENCES">
+      <point x="0.0" y="-0.0" />
+      <point x="0.0" y="-0.0" />
+    </edge>
+    <edge source="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.assignment_answer" target="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.groups" relationship="REFERENCES">
+      <point x="0.0" y="-0.0" />
+      <point x="0.0" y="-0.0" />
     </edge>
     <edge source="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.student_approved_answer" target="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.assignment_answer" relationship="REFERENCES">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="0.0" y="-0.0" />
+      <point x="0.0" y="-0.0" />
     </edge>
     <edge source="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.group_discussions" target="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.groups" relationship="REFERENCES">
-      <point x="0.0" y="0.0" />
-      <point x="0.0" y="0.0" />
+      <point x="0.0" y="-0.0" />
+      <point x="0.0" y="-0.0" />
     </edge>
     <edge source="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.groups" target="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.groups" relationship="REFERENCES">
-      <point x="-83.5" y="-39.25" />
-      <point x="485.5" y="502.25" />
-      <point x="479.5" y="496.25" />
-      <point x="479.5" y="448.0" />
-      <point x="485.5" y="442.0" />
-      <point x="536.25" y="442.0" />
-      <point x="542.25" y="448.0" />
       <point x="-41.75" y="-78.5" />
+      <point x="330.3595732410613" y="512.0092272202999" />
+      <point x="324.3595732410613" y="506.00922722029986" />
+      <point x="273.6095732410613" y="506.00922722029986" />
+      <point x="267.6095732410613" y="512.0092272202999" />
+      <point x="267.6095732410613" y="560.2592272202999" />
+      <point x="273.6095732410613" y="566.2592272202999" />
+      <point x="-83.5" y="-39.25" />
+    </edge>
+    <edge source="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.events" target="9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.users" relationship="REFERENCES">
+      <point x="0.0" y="-0.0" />
+      <point x="0.0" y="-0.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="0.8702036441586282" showDependencies="false" x="502.27330952087686" y="296.6755758098288" />
+  <settings layout="Hierarchic" zoom="0.6821400472069237" showDependencies="false" x="485.5" y="625.5" />
   <SelectedNodes>
-    <node>9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.class_students</node>
+    <node>9870b92b-72a3-466b-8aa2-ac0b8b31514b.TABLE:chat_engine.public.ga_approved_answer</node>
   </SelectedNodes>
   <Categories>
     <Category>Columns</Category>
