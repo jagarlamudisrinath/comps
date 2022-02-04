@@ -18,9 +18,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.session:spring-session-jdbc'
     implementation 'org.springframework.session:spring-session-core'
+    implementation 'org.apache.commons:commons-csv:1.9.0'
     runtimeOnly 'org.postgresql:postgresql'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation group: 'org.testcontainers', name: 'postgresql', version: '1.16.3'
 }
 
 tasks.named('test') {
