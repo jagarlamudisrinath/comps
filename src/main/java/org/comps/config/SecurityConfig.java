@@ -8,12 +8,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @EnableWebSecurity
 public class SecurityConfig  extends WebSecurityConfigurerAdapter {
-    private static String[] staticResources = {"/test", "/users/upload"};
+    private static String[] staticResources = {"/test"};
     @Autowired private AppAuthSuccessHandler authSuccessHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .httpBasic().and()
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(staticResources).permitAll()

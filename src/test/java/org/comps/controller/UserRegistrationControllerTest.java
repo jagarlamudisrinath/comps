@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.util.LinkedMultiValueMap;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         classes = {ChatengineApplication.class})
+@Sql(scripts = {"classpath:db/postgres/dml.sql"})
 public class UserRegistrationControllerTest {
     @Autowired TestRestTemplate restTemplate;
 
@@ -24,7 +26,7 @@ public class UserRegistrationControllerTest {
 
         HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<>(parameters, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange("/users/upload", HttpMethod.POST, entity, String.class, "");
+        ResponseEntity<String> response = restTemplate.withBasicAuth("srinath", "password").exchange("/users/upload", HttpMethod.POST, entity, String.class, "");
 
         // Expect Ok
         Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK);
