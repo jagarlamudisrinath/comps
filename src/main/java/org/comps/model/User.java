@@ -1,36 +1,14 @@
 package org.comps.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("users")
-public class User implements Persistable<String> {
-
-    @Id
-    private String id;
+public class User extends BaseEntity {
     private String firstName;
     private String lastName;
     private String email;
     private String password;
     private UserType type;
-
-    @Transient
-    private boolean isNew;
-
-    public String getId() {
-        return id;
-    }
-
-    @Override
-    public boolean isNew() {
-        return isNew;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -70,9 +48,5 @@ public class User implements Persistable<String> {
 
     public void setType(UserType type) {
         this.type = type;
-    }
-
-    public void setNew(boolean aNew) {
-        isNew = aNew;
     }
 }
