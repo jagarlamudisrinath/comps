@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Transactional
 @Service
 public class UserService {
@@ -17,5 +19,10 @@ public class UserService {
 
     public boolean existsById(String id) {
         return userRepository.existsById(id);
+    }
+
+    public User findById(String userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        return optionalUser.orElse(null);
     }
 }
