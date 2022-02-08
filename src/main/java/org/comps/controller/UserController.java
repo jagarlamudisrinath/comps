@@ -24,11 +24,11 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-public class UserRegistrationController implements InitializingBean {
+public class UserController implements InitializingBean {
     @Autowired private UserService userService;
     private PasswordEncoder passwordEncoder;
 
-    private static Logger logger = LoggerFactory.getLogger(UserRegistrationController.class);
+    private static Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -39,7 +39,7 @@ public class UserRegistrationController implements InitializingBean {
     public Map<String, String> processUpload(@RequestParam MultipartFile file) throws IOException {
         logger.info("Received file [{}] for upload users", file.getName());
         BufferedReader fileReader = new BufferedReader(new InputStreamReader(file.getInputStream(), "UTF-8"));
-        CSVParser csvParser = CSVFormat.DEFAULT.builder().setHeader("id", "first_name", "last_name", "email", "type").build().parse(fileReader);
+        CSVParser csvParser = CSVFormat.DEFAULT.builder().setCommentMarker('#').setHeader("id", "first_name", "last_name", "email", "type").build().parse(fileReader);
         List<CSVRecord> records = csvParser.getRecords();
         StringBuilder errorMsg = new StringBuilder();
         int i = 0;

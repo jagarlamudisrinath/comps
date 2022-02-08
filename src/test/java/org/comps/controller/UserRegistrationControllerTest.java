@@ -19,7 +19,7 @@ public class UserRegistrationControllerTest {
     @Test
     public void uploadUsers() {
         LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<>();
-        parameters.add("file", new org.springframework.core.io.ClassPathResource("users.csv"));
+        parameters.add("file", new org.springframework.core.io.ClassPathResource("test-data/003-users.csv"));
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
