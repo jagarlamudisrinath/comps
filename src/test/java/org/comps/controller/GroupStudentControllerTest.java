@@ -2,6 +2,7 @@ package org.comps.controller;
 
 import org.comps.ChatengineApplication;
 import org.comps.model.GroupStudent;
+import org.comps.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         classes = {ChatengineApplication.class})
-@Sql(scripts = {"classpath:test-data/008-group-students.sql"}, config = @SqlConfig(errorMode = SqlConfig.ErrorMode.FAIL_ON_ERROR))
+@Sql(scripts = {"classpath:test-data/008-group-students.sql"}, config = @SqlConfig(errorMode = SqlConfig.ErrorMode.CONTINUE_ON_ERROR))
 public class GroupStudentControllerTest {
     @Autowired private TestRestTemplate restTemplate;
 
@@ -43,5 +44,19 @@ public class GroupStudentControllerTest {
 
         // Expect Ok
         Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    public void findUsersNotInAnyGroup() {
+        ResponseEntity<List<User>> usersResponse = restTemplate.withBasicAuth("srinath", "password")
+                .exchange("/group-students?classId=2022-CS002&assignmentId=2022-CS002-001", HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {});
+        Assertions.assertEquals(4, usersResponse.getBody().size());
+    }
+
+    @Test
+    public void findUsersInGroup() {
+        ResponseEntity<List<User>> usersResponse = restTemplate.withBasicAuth("srinath", "password")
+                .exchange("/group-students?groupId=2022-CS002-001-g1", HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {});
+        Assertions.assertEquals(1, usersResponse.getBody().size());
     }
 }

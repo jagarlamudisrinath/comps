@@ -11,9 +11,7 @@ import org.comps.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -57,5 +55,15 @@ public class GroupStudentsController {
         } else {
             return Map.of("msg", "Successfully uploaded users in the file");
         }
+    }
+
+    @GetMapping(value = "/group-students", params = {"classId", "assignmentId"})
+    public List<User> findUsersNotInAnyGroup(@RequestParam String classId, @RequestParam String assignmentId) {
+        return groupStudentService.findUsersNotInAnyGroup(classId, assignmentId);
+    }
+
+    @GetMapping(value = "/group-students", params = {"groupId"})
+    public List<User> findUsersInGroup(@RequestParam String groupId) {
+        return groupStudentService.findUsersInGroup(groupId);
     }
 }
