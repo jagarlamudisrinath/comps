@@ -38,7 +38,7 @@ public class ClassStudentControllerTest {
 
         ResponseEntity<List<User>> userRespone = restTemplate.withBasicAuth("srinath", "password")
                 .exchange("/class-students?classId=2022-CS001", HttpMethod.GET, entity, new ParameterizedTypeReference<List<User>>() {});
-        Assertions.assertEquals(userRespone.getBody().size(), 9);
+        Assertions.assertEquals(9, userRespone.getBody().size());
     }
 
     @Test
@@ -51,7 +51,7 @@ public class ClassStudentControllerTest {
 
         HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<>(parameters, headers);
 
-        ResponseEntity<String> response = restTemplate.withBasicAuth("srinath", "password").exchange("/class-students/upload", HttpMethod.POST, entity, String.class, "");
+        ResponseEntity<String> response = restTemplate.withBasicAuth("mark", "password").exchange("/class-students/upload", HttpMethod.POST, entity, String.class, "");
 
         // Expect Ok
         Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK);
@@ -63,6 +63,6 @@ public class ClassStudentControllerTest {
 
         ResponseEntity<List<User>> userRespone = restTemplate.withBasicAuth("srinath", "password")
                 .exchange("/class-students?classId=2022-CS001", HttpMethod.GET, entity, new ParameterizedTypeReference<List<User>>() {});
-        Assertions.assertEquals(userRespone.getBody().size(), 8);
+        Assertions.assertEquals(8, userRespone.getBody().size());
     }
 }

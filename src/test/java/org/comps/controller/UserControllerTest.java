@@ -8,12 +8,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.util.LinkedMultiValueMap;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         classes = {ChatengineApplication.class})
-@Sql(scripts = {"classpath:db/postgres/dml.sql"})
-public class UserRegistrationControllerTest {
+@Sql(scripts = {"classpath:db/postgres/dml.sql"}, config = @SqlConfig(errorMode = SqlConfig.ErrorMode.CONTINUE_ON_ERROR))
+public class UserControllerTest {
     @Autowired TestRestTemplate restTemplate;
 
     @Test
