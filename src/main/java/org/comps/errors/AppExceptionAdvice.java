@@ -13,7 +13,7 @@ public class AppExceptionAdvice {
 
     @ExceptionHandler(value = { Exception.class })
     public ResponseEntity<Object> handleException(Exception ex) {
-        LOGGER.error("Exception: ", ex.getMessage());
+        LOGGER.error("Exception: ", ex);
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

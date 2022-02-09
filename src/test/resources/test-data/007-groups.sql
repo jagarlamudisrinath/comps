@@ -26,4 +26,4 @@ insert into classes (id, prof_id, ga_id, title) values ('2022-CS001', 'mark', 's
 -- assignments
 insert into assignments(id, class_id, question, no_of_groups, created_by) values ('2022-CS001-001', '2022-CS001', 'What is Object Oriented Design?', 3, 'mark');
 
-insert into groups(id, group_id, assignment_id, answer) values ('2', 'g2', '2022-CS001-001', 'test');
+insert into groups(id, group_id, assignment_id, answer, active) values ('2', 'g2', '2022-CS001-001', 'test',  true);

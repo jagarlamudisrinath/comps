@@ -7,7 +7,7 @@ public class Group extends BaseEntity {
     private String groupId;
     private String assignmentId;
     private String answer;
-    private boolean active = true;
+    private Boolean active = true;
 
     public String getGroupId() {
         return groupId;
@@ -33,11 +33,11 @@ public class Group extends BaseEntity {
         this.answer = answer;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 }

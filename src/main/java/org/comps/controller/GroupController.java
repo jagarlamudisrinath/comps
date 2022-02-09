@@ -7,10 +7,9 @@ import org.comps.service.AssignmentService;
 import org.comps.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -42,5 +41,10 @@ public class GroupController {
 
         groupService.save(group);
         return group;
+    }
+
+    @GetMapping(value = "/groups", params = "assignmentId")
+    public List<Group> findGroupsByAssignmentId(@RequestParam String assignmentId) {
+        return groupService.findAllByAssignmentId(assignmentId);
     }
 }
