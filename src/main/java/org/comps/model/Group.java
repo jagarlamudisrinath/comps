@@ -7,7 +7,7 @@ public class Group extends BaseEntity {
     private String groupId;
     private String assignmentId;
     private String answer;
-    private Boolean active = true;
+    private Boolean active = Boolean.TRUE;
 
     public String getGroupId() {
         return groupId;
