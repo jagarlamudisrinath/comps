@@ -1,6 +1,7 @@
 package org.comps.service;
 
 import org.comps.model.Assignment;
+import org.comps.model.User;
 import org.comps.repository.AssignmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
