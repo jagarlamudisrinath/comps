@@ -24,22 +24,22 @@ public class GroupStudentControllerTest {
 
     @Test
     public void assignGroupStudent() {
-        GroupStudent groupStudent1 = new GroupStudent("2", "srinath");
-        GroupStudent groupStudent2 = new GroupStudent("2", "mahesh");
-        GroupStudent groupStudent3 = new GroupStudent("2", "suresh");
-        GroupStudent groupStudent4 = new GroupStudent("3", "naresh");
-        GroupStudent groupStudent5 = new GroupStudent("3", "vijay");
-        GroupStudent groupStudent6 = new GroupStudent("3", "sahil");
-        GroupStudent groupStudent7 = new GroupStudent("4", "raja");
-        GroupStudent groupStudent8 = new GroupStudent("4", "ganesh");
-        GroupStudent groupStudent9 = new GroupStudent("4", "harish");
+        GroupStudent groupStudent1 = new GroupStudent("8-CS-8-AS2-g1", "8srinath");
+        GroupStudent groupStudent2 = new GroupStudent("8-CS-8-AS2-g1", "8mahesh");
+        GroupStudent groupStudent3 = new GroupStudent("8-CS-8-AS2-g1", "8suresh");
+        GroupStudent groupStudent4 = new GroupStudent("8-CS-8-AS2-g2", "8naresh");
+        GroupStudent groupStudent5 = new GroupStudent("8-CS-8-AS2-g2", "8vijay");
+        GroupStudent groupStudent6 = new GroupStudent("8-CS-8-AS2-g2", "8sahil");
+        GroupStudent groupStudent7 = new GroupStudent("8-CS-8-AS2-g3", "8raja");
+        GroupStudent groupStudent8 = new GroupStudent("8-CS-8-AS2-g3", "8ganesh");
+        GroupStudent groupStudent9 = new GroupStudent("8-CS-8-AS2-g3", "8harish");
 
         HttpEntity<List<GroupStudent>> entity = new HttpEntity<>(List.of(groupStudent1,
                 groupStudent2, groupStudent3,
                 groupStudent4, groupStudent5, groupStudent6,
                 groupStudent7, groupStudent8, groupStudent9), new HttpHeaders());
 
-        ResponseEntity<Map<String, String>> response = restTemplate.withBasicAuth("srinath", "password")
+        ResponseEntity<Map<String, String>> response = restTemplate.withBasicAuth("8srinath", "password")
                 .exchange("/group-students", HttpMethod.POST, entity, new ParameterizedTypeReference<Map<String, String>>() {});
 
         // Expect Ok
@@ -48,15 +48,15 @@ public class GroupStudentControllerTest {
 
     @Test
     public void findUsersNotInAnyGroup() {
-        ResponseEntity<List<User>> usersResponse = restTemplate.withBasicAuth("srinath", "password")
-                .exchange("/group-students?classId=2022-CS002&assignmentId=2022-CS002-001", HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {});
+        ResponseEntity<List<User>> usersResponse = restTemplate.withBasicAuth("8srinath", "password")
+                .exchange("/group-students?classId=8-CS&assignmentId=8-CS-8-AS", HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {});
         Assertions.assertEquals(4, usersResponse.getBody().size());
     }
 
     @Test
     public void findUsersInGroup() {
-        ResponseEntity<List<User>> usersResponse = restTemplate.withBasicAuth("srinath", "password")
-                .exchange("/group-students?groupId=2022-CS002-001-g1", HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {});
+        ResponseEntity<List<User>> usersResponse = restTemplate.withBasicAuth("8srinath", "password")
+                .exchange("/group-students?groupId=8-CS-8-AS-g1", HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {});
         Assertions.assertEquals(1, usersResponse.getBody().size());
     }
 }

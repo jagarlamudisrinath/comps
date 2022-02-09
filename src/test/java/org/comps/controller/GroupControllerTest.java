@@ -25,19 +25,19 @@ public class GroupControllerTest {
     @Test
     public void createGroup() {
         Group group = new Group();
-        group.setGroupId("g1");
-        group.setAssignmentId("2022-CS001-001");
+        group.setGroupId("g2");
+        group.setAssignmentId("7-CS-7-AS");
         group.setActive(true);
         group.setAnswer("test");
-        ResponseEntity<Group> groupResponseEntity = restTemplate.withBasicAuth("mark", "password")
+        ResponseEntity<Group> groupResponseEntity = restTemplate.withBasicAuth("7mark", "password")
                 .postForEntity("/groups", group, Group.class);
         Assertions.assertEquals(HttpStatus.OK, groupResponseEntity.getStatusCode());
     }
 
     @Test
     public void getGroupsByAssignmentId() {
-        ResponseEntity<List<Group>> listResponseEntity = restTemplate.withBasicAuth("srinath", "password")
-                .exchange("/groups?assignmentId=2022-CS001-001", HttpMethod.GET, null, new ParameterizedTypeReference<List<Group>>() {});
+        ResponseEntity<List<Group>> listResponseEntity = restTemplate.withBasicAuth("7srinath", "password")
+                .exchange("/groups?assignmentId=7-CS-7-AS", HttpMethod.GET, null, new ParameterizedTypeReference<List<Group>>() {});
         Assertions.assertTrue(listResponseEntity.getBody().size() > 0);
     }
 }

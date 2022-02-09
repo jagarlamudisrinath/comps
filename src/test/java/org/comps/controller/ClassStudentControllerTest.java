@@ -31,38 +31,25 @@ public class ClassStudentControllerTest {
 
         HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<>(parameters, headers);
 
-        ResponseEntity<String> response = restTemplate.withBasicAuth("srinath", "password").exchange("/class-students/upload", HttpMethod.POST, entity, String.class, "");
+        ResponseEntity<String> response = restTemplate.withBasicAuth("5srinath", "password").exchange("/class-students/upload", HttpMethod.POST, entity, String.class, "");
 
         // Expect Ok
         Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK);
 
-        ResponseEntity<List<User>> userRespone = restTemplate.withBasicAuth("srinath", "password")
-                .exchange("/class-students?classId=2022-CS001", HttpMethod.GET, entity, new ParameterizedTypeReference<List<User>>() {});
+        ResponseEntity<List<User>> userRespone = restTemplate.withBasicAuth("5srinath", "password")
+                .exchange("/class-students?classId=5-CS", HttpMethod.GET, entity, new ParameterizedTypeReference<List<User>>() {});
         Assertions.assertEquals(9, userRespone.getBody().size());
     }
 
     @Test
     public void deleteStudent() {
-        LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<>();
-        parameters.add("file", new org.springframework.core.io.ClassPathResource("test-data/005-class-students.csv"));
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-
-        HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<>(parameters, headers);
-
-        ResponseEntity<String> response = restTemplate.withBasicAuth("mark", "password").exchange("/class-students/upload", HttpMethod.POST, entity, String.class, "");
-
-        // Expect Ok
-        Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK);
-
-        ResponseEntity<Void> deleteResponse = restTemplate.withBasicAuth("srinath", "password")
-                .exchange("/class-students?classId=2022-CS001&studentId=srinath", HttpMethod.DELETE, entity, Void.class);
+        ResponseEntity<Void> deleteResponse = restTemplate.withBasicAuth("5srinath", "password")
+                .exchange("/class-students?classId=5-CS2&studentId=5srinath", HttpMethod.DELETE, null, Void.class);
 
         Assertions.assertEquals(deleteResponse.getStatusCode(), HttpStatus.OK);
 
-        ResponseEntity<List<User>> userRespone = restTemplate.withBasicAuth("srinath", "password")
-                .exchange("/class-students?classId=2022-CS001", HttpMethod.GET, entity, new ParameterizedTypeReference<List<User>>() {});
-        Assertions.assertEquals(8, userRespone.getBody().size());
+        ResponseEntity<List<User>> userRespone = restTemplate.withBasicAuth("5srinath", "password")
+                .exchange("/class-students?classId=5-CS2", HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {});
+        Assertions.assertEquals(1, userRespone.getBody().size());
     }
 }

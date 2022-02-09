@@ -1,5 +1,6 @@
 package org.comps.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("groups")
@@ -7,6 +8,7 @@ public class Group extends BaseEntity {
     private String groupId;
     private String assignmentId;
     private String answer;
+    @JsonIgnore
     private Boolean active = Boolean.TRUE;
 
     public String getGroupId() {
