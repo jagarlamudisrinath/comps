@@ -25,7 +25,7 @@ public class GroupControllerTest {
     @Test
     public void createGroup() {
         Group group = new Group();
-        group.setGroupId("g2");
+        group.setGroupId("g1");
         group.setAssignmentId("7-CS-7-AS");
         group.setActive(true);
         group.setAnswer("test");
