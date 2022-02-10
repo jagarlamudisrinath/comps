@@ -23,7 +23,7 @@ public class AssignmentController {
         boolean assignmentExists = classService.existsById(assignment.getClassId());
 
         if(!assignmentExists) {
-            throw AppExceptions.resourceNotFound(String.format("No Class found with Id: %s exists", assignment.getClassId()));
+            throw AppExceptions.resourceNotFound(String.format("No Class found with Id: %s", assignment.getClassId()));
         }
 
         if(StringUtils.hasText(assignment.getId())) {
