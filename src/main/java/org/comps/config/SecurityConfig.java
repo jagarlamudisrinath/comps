@@ -8,7 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @EnableWebSecurity
 public class SecurityConfig  extends WebSecurityConfigurerAdapter {
-    private static String[] staticResources = {"/test"};
+    private static String[] staticResources = {"/test", "/ws", "/chat", "/**/websocket"};
     @Autowired private AppAuthSuccessHandler authSuccessHandler;
 
     @Override

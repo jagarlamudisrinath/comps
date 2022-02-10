@@ -63,9 +63,10 @@ CREATE TABLE IF NOT EXISTS GROUP_STUDENTS
 CREATE TABLE IF NOT EXISTS GROUP_DISCUSSIONS
 (
     ID         TEXT PRIMARY KEY,
-    GROUP_ID   TEXT REFERENCES GROUPS (ID) NOT NULL,
-    CHAT       TEXT                        NOT NULL,
-    CREATED_BY TEXT                        NOT NULL,
+    CHAT_ID    TEXT REFERENCES GROUPS (ID) NOT NULL,
+    CONTENT    TEXT                        NOT NULL,
+    SENDER     TEXT                        REFERENCES USERS(ID) NOT NULL,
+    TYPE       TEXT,
     CREATED_ON DATE                        NOT NULL
 );
 
