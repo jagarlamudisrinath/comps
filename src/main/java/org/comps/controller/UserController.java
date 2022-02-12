@@ -12,6 +12,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +40,7 @@ public class UserController implements InitializingBean {
     @PostMapping(value="/users/upload")
     public Map<String, String> processUpload(@RequestParam MultipartFile file) throws IOException {
         logger.info("Received file [{}] for upload users", file.getName());
-        BufferedReader fileReader = new BufferedReader(new InputStreamReader(file.getInputStream(), "UTF-8"));
+        BufferedReader fileReader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8));
         CSVParser csvParser = CSVFormat.DEFAULT.builder().setCommentMarker('#').setHeader("id", "first_name", "last_name", "email", "type").build().parse(fileReader);
         List<CSVRecord> records = csvParser.getRecords();
         StringBuilder errorMsg = new StringBuilder();
@@ -59,11 +61,7 @@ public class UserController implements InitializingBean {
                 user.setPassword(passwordEncoder.encode("password"));
                 user.setType(UserType.valueOf(type));
                 boolean existsById = userService.existsById(id);
-                if (!existsById) {
-                    user.setNew(true);
-                } else {
-                    user.setNew(false);
-                }
+                user.setNew(!existsById);
                 userService.save(user);
             } catch (Exception e) {
                 errorMsg.append("Correct line no: ").append(i).append(", error: ").append(e.getMessage()).append("\n");
@@ -75,5 +73,10 @@ public class UserController implements InitializingBean {
         } else {
             return Map.of("msg", "Successfully uploaded users in the file");
         }
+    }
+
+    @GetMapping(value = "users")
+    public List<User> getUsersByType(@RequestParam UserType type) {
+        return userService.findUserByType(type);
     }
 }

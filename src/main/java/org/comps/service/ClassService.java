@@ -28,4 +28,8 @@ public class ClassService {
     public List<Class> findAllByProfId(String profId) {
         return classRepository.findAllByProfId(profId);
     }
+
+    public List<Class> findAll() {
+        return classRepository.findAll();
+    }
 }

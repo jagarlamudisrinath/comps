@@ -1,6 +1,7 @@
 package org.comps.service;
 
 import org.comps.model.User;
+import org.comps.model.UserType;
 import org.comps.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,9 @@ public class UserService {
 
     public List<User> findUsersByClassId(String classId) {
         return userRepository.findUsersByClassId(classId);
+    }
+
+    public List<User> findUserByType(UserType type) {
+        return userRepository.findUsersByType(type);
     }
 }

@@ -51,4 +51,9 @@ public class ClassController {
     public List<Class> findClassByProfId(@RequestParam String profId) {
         return classService.findAllByProfId(profId);
     }
+
+    @GetMapping(value = "/classes")
+    public List<Class> findAllClasses() {
+        return classService.findAll();
+    }
 }

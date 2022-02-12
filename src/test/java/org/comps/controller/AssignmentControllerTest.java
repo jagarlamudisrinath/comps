@@ -27,18 +27,18 @@ public class AssignmentControllerTest {
     public void createAssignment() {
         Assignment assignment = new Assignment();
         assignment.setClassId("2022-CS001");
-        assignment.setCreatedBy("mark");
+        assignment.setCreatedBy("6mark");
         assignment.setQuestion("What is Computers?");
         assignment.setNoOfGroups(5);
         assignment.setId("2022-CS001-001");
-        ResponseEntity<Assignment> assignmentResponseEntity = restTemplate.withBasicAuth("mark", "password")
+        ResponseEntity<Assignment> assignmentResponseEntity = restTemplate.withBasicAuth("6mark", "password")
                 .postForEntity("/assignments", assignment, Assignment.class);
         Assertions.assertEquals(HttpStatus.OK, assignmentResponseEntity.getStatusCode());
     }
 
     @Test
     public void getAssignmentsByClassId() {
-        ResponseEntity<List<Assignment>> listResponseEntity = restTemplate.withBasicAuth("srinath", "password")
+        ResponseEntity<List<Assignment>> listResponseEntity = restTemplate.withBasicAuth("6srinath", "password")
                 .exchange("/assignments?classId=2022-CS001", HttpMethod.GET, null, new ParameterizedTypeReference<List<Assignment>>() {});
         Assertions.assertTrue(listResponseEntity.getBody().size() > 0);
     }

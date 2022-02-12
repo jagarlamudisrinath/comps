@@ -13,4 +13,6 @@ public interface ClassRepository extends CrudRepository<Class, String> {
 
     @Query("SELECT * FROM classes WHERE prof_id = :profId")
     List<Class> findAllByProfId(String profId);
+
+    List<Class> findAll();
 }
