@@ -32,8 +32,8 @@ insert into class_students (id, student_id, class_id) values ('8-CS-8sahil', '8s
 insert into class_students (id, student_id, class_id) values ('8-CS-8vijay', '8vijay', '8-CS');
 
 -- assignments
-insert into assignments(id, class_id, question, no_of_groups, created_by) values ('8-CS-8-AS', '8-CS', 'What is Encapsulation?', 3, 'mark8');
-insert into assignments(id, class_id, question, no_of_groups, created_by) values ('8-CS-8-AS2', '8-CS', 'What is Polymorphism?', 3, 'mark8');
+insert into assignments(id, class_id, title, no_of_groups, created_by) values ('8-CS-8-AS', '8-CS', 'What is Encapsulation?', 3, 'mark8');
+insert into assignments(id, class_id, title, no_of_groups, created_by) values ('8-CS-8-AS2', '8-CS', 'What is Polymorphism?', 3, 'mark8');
 
 insert into groups(id, group_id, assignment_id, answer, active) values ('8-CS-8-AS-g1', 'g1', '8-CS-8-AS', 'test',  true);
 insert into groups(id, group_id, assignment_id, answer, active) values ('8-CS-8-AS-g2', 'g2', '8-CS-8-AS', 'test',  true);

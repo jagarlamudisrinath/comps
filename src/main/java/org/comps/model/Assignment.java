@@ -5,7 +5,9 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("assignments")
 public class Assignment extends BaseEntity {
     private String classId;
-    private String question;
+    private String title;
+    private String description;
+    private String file;
     private String createdBy;
     private int    noOfGroups;
 
@@ -17,12 +19,20 @@ public class Assignment extends BaseEntity {
         this.classId = classId;
     }
 
-    public String getQuestion() {
-        return question;
+    public String getTitle() {
+        return title;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
     }
 
     public String getCreatedBy() {
@@ -39,5 +49,13 @@ public class Assignment extends BaseEntity {
 
     public void setNoOfGroups(int noOfGroups) {
         this.noOfGroups = noOfGroups;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

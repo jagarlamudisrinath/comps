@@ -37,7 +37,9 @@ CREATE TABLE IF NOT EXISTS ASSIGNMENTS
 (
     ID           TEXT PRIMARY KEY,
     CLASS_ID     TEXT REFERENCES CLASSES (ID) NOT NULL,
-    QUESTION     TEXT                         NOT NULL,
+    TITLE        TEXT                         NOT NULL,
+    DESCRIPTION  TEXT,
+    FILE         TEXT,
     NO_OF_GROUPS INT,
     CREATED_BY   TEXT
 );

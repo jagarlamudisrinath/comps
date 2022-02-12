@@ -7,4 +7,4 @@ insert into users (id, first_name, last_name, email, password, type) VALUES
 -- class script
 insert into classes (id, prof_id, ga_id, title) values ('6-2022-CS001', '6mark', '6srinath', 'Algorithms');
 
-insert into assignments(id, class_id, question, no_of_groups, created_by) values ('6-2022-CS001-001', '6-2022-CS001', 'What is Object Oriented Design?', 3, '6mark');
+insert into assignments(id, class_id, title, no_of_groups, created_by) values ('6-2022-CS001-001', '6-2022-CS001', 'What is Object Oriented Design?', 3, '6mark');

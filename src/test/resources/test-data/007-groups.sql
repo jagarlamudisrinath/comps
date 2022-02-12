@@ -24,6 +24,6 @@ insert into users (id, first_name, last_name, email, password, type) VALUES
 insert into classes (id, prof_id, ga_id, title) values ('7-CS', '7mark', '7srinath', 'Algorithms');
 
 -- assignments
-insert into assignments(id, class_id, question, no_of_groups, created_by) values ('7-CS-7-AS', '7-CS', 'What is Object Oriented Design?', 3, '7mark');
+insert into assignments(id, class_id, title, no_of_groups, created_by) values ('7-CS-7-AS', '7-CS', 'What is Object Oriented Design?', 3, '7mark');
 
 insert into groups(id, group_id, assignment_id, answer, active) values ('7-CS-7-AS-g2', 'g2', '7-CS-7-AS', 'test',  true);

@@ -32,7 +32,7 @@ insert into class_students (id, student_id, class_id) values ('9-CS-8sahil', '9s
 insert into class_students (id, student_id, class_id) values ('9-CS-8vijay', '9vijay', '9-CS');
 
 -- assignments
-insert into assignments(id, class_id, question, no_of_groups, created_by) values ('9-CS-9-AS', '9-CS', 'What is Encapsulation?', 3, '9mark');
+insert into assignments(id, class_id, title, no_of_groups, created_by) values ('9-CS-9-AS', '9-CS', 'What is Encapsulation?', 3, '9mark');
 
 insert into groups(id, group_id, assignment_id, answer, active) values ('9-CS-9-AS-g1', 'g1', '9-CS-9-AS', 'test',  true);
 

@@ -28,7 +28,7 @@ public class AssignmentControllerTest {
         Assignment assignment = new Assignment();
         assignment.setClassId("2022-CS001");
         assignment.setCreatedBy("6mark");
-        assignment.setQuestion("What is Computers?");
+        assignment.setTitle("What is Computers?");
         assignment.setNoOfGroups(5);
         assignment.setId("2022-CS001-001");
         ResponseEntity<Assignment> assignmentResponseEntity = restTemplate.withBasicAuth("6mark", "password")
