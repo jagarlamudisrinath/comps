@@ -6,6 +6,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("groups")
 public class Group extends BaseEntity {
     private String groupId;
+    private String title;
     private String assignmentId;
     private String answer;
     @JsonIgnore
@@ -41,5 +42,13 @@ public class Group extends BaseEntity {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
