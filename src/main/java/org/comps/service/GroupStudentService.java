@@ -25,4 +25,13 @@ public class GroupStudentService {
     public List<User> findUsersInGroup(String groupId) {
         return groupStudentRepository.findUsersByGroupId(groupId);
     }
+
+    public GroupStudent findGroupStudent(String groupId, String studentId) {
+        List<GroupStudent> usersByGroupIdAndStudentId = groupStudentRepository.findGroupStudentByGroupIdAndStudentId(groupId, studentId);
+        return usersByGroupIdAndStudentId.isEmpty() ? null : usersByGroupIdAndStudentId.get(0);
+    }
+
+    public void delete(GroupStudent groupStudent) {
+        groupStudentRepository.delete(groupStudent);
+    }
 }

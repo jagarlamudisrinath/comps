@@ -12,6 +12,9 @@ public interface GroupStudentRepository extends CrudRepository<GroupStudent, Str
     @Query("SELECT * FROM users WHERE id in (select student_id from group_students where group_id = :groupId)")
     List<User> findUsersByGroupId(String groupId);
 
+    @Query("select * from group_students where group_id = :groupId and student_id = :studentId")
+    List<GroupStudent> findGroupStudentByGroupIdAndStudentId(String groupId, String studentId);
+
     @Query("SELECT * FROM users WHERE id in (select student_id from class_students where class_id = :classId)" +
             " and id not in (select student_id from group_students where group_id in (select id from groups where assignment_id = :assignmentId))")
     List<User> findUsersNotInAnyGroup(String classId, String assignmentId);

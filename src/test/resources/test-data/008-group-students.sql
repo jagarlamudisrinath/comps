@@ -45,6 +45,7 @@ insert into groups(id, group_id, assignment_id, answer, active) values ('8-CS-8-
 
 insert into group_students(id, group_id, student_id) values ('8-CS-8-AS-g1-srinath8', '8-CS-8-AS-g1', '8srinath');
 insert into group_students(id, group_id, student_id) values ('8-CS-8-AS-g2-mahesh8', '8-CS-8-AS-g2', '8mahesh');
+insert into group_students(id, group_id, student_id) values ('8-CS-8-AS-g3-mahesh8', '8-CS-8-AS-g3', '8mahesh');
 
 SELECT * FROM users WHERE id in (select student_id from group_students where group_id = '8-CS-8-AS-g1');
 

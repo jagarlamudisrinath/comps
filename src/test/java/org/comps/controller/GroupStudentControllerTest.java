@@ -47,6 +47,16 @@ public class GroupStudentControllerTest {
     }
 
     @Test
+    public void deleteUserInGroups() {
+        ResponseEntity<Void> deleteResponse = restTemplate.withBasicAuth("8srinath", "password")
+                .exchange("/group-students?groupId=8-CS-8-AS-g3&studentId=8mahesh", HttpMethod.DELETE, null, new ParameterizedTypeReference<Void>() {});
+        Assertions.assertEquals(HttpStatus.OK, deleteResponse.getStatusCode());
+        ResponseEntity<List<User>> usersResponse = restTemplate.withBasicAuth("8srinath", "password")
+                .exchange("/group-students?groupId=8-CS-8-AS-g3", HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {});
+        Assertions.assertEquals(0, usersResponse.getBody().size());
+    }
+
+    @Test
     public void findUsersNotInAnyGroup() {
         ResponseEntity<List<User>> usersResponse = restTemplate.withBasicAuth("8srinath", "password")
                 .exchange("/group-students?classId=8-CS&assignmentId=8-CS-8-AS", HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {});

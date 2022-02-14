@@ -57,6 +57,15 @@ public class GroupStudentsController {
         }
     }
 
+    @DeleteMapping(value = "/group-students")
+    public void deleteGroupStudent(@RequestParam String groupId, @RequestParam String studentId) {
+        GroupStudent groupStudent = groupStudentService.findGroupStudent(groupId, studentId);
+        if(groupStudent == null) {
+            throw AppExceptions.resourceNotFound(String.format("No Resource with groupId: %s and studentId: %s", groupId, studentId));
+        }
+        groupStudentService.delete(groupStudent);
+    }
+
     @GetMapping(value = "/group-students", params = {"classId", "assignmentId"})
     public List<User> findUsersNotInAnyGroup(@RequestParam String classId, @RequestParam String assignmentId) {
         return groupStudentService.findUsersNotInAnyGroup(classId, assignmentId);
