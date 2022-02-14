@@ -5,10 +5,14 @@ import org.comps.model.Assignment;
 import org.comps.service.AssignmentService;
 import org.comps.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,7 +23,7 @@ public class AssignmentController {
     @Autowired private AssignmentService assignmentService;
 
     @PostMapping("/assignments")
-    public Assignment createAssignment(@RequestBody Assignment assignment) {
+    public Assignment createAssignment(@RequestPart Assignment assignment, @RequestParam(required = false) MultipartFile file) {
         boolean assignmentExists = classService.existsById(assignment.getClassId());
 
         if(!assignmentExists) {
@@ -44,8 +48,16 @@ public class AssignmentController {
         UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         assignment.setCreatedBy(userDetails.getUsername());
 
-        assignmentService.save(assignment);
+        assignmentService.save(assignment, file);
         return assignment;
+    }
+
+    @GetMapping("/assignments/{assignmentId}/file")
+    @ResponseBody
+    public ResponseEntity<Resource> assignmentFile(@PathVariable String assignmentId) {
+        Resource file = assignmentService.getAssignmentFile(assignmentId);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
     @GetMapping(value = "/assignments", params = "classId")

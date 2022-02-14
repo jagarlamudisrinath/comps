@@ -2,18 +2,17 @@ package org.comps.controller;
 
 import org.comps.ChatengineApplication;
 import org.comps.model.Assignment;
-import org.comps.model.Class;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.Resource;
+import org.springframework.http.*;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
+import org.springframework.util.LinkedMultiValueMap;
 
 import java.util.List;
 
@@ -26,20 +25,37 @@ public class AssignmentControllerTest {
     @Test
     public void createAssignment() {
         Assignment assignment = new Assignment();
-        assignment.setClassId("2022-CS001");
+        assignment.setClassId("6-2022-CS001");
         assignment.setCreatedBy("6mark");
         assignment.setTitle("What is Computers?");
         assignment.setNoOfGroups(5);
-        assignment.setId("2022-CS001-001");
+        assignment.setId("6-2022-CS001-001");
+
+        LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<>();
+        parameters.add("file", new org.springframework.core.io.ClassPathResource("test-data/006-assignment-questions.txt"));
+        parameters.add("assignment", assignment);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+        HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<>(parameters, headers);
+
         ResponseEntity<Assignment> assignmentResponseEntity = restTemplate.withBasicAuth("6mark", "password")
-                .postForEntity("/assignments", assignment, Assignment.class);
+                .postForEntity("/assignments", entity, Assignment.class);
         Assertions.assertEquals(HttpStatus.OK, assignmentResponseEntity.getStatusCode());
     }
 
     @Test
     public void getAssignmentsByClassId() {
         ResponseEntity<List<Assignment>> listResponseEntity = restTemplate.withBasicAuth("6srinath", "password")
-                .exchange("/assignments?classId=2022-CS001", HttpMethod.GET, null, new ParameterizedTypeReference<List<Assignment>>() {});
+                .exchange("/assignments?classId=6-2022-CS001", HttpMethod.GET, null, new ParameterizedTypeReference<List<Assignment>>() {});
         Assertions.assertTrue(listResponseEntity.getBody().size() > 0);
+    }
+
+    @Test
+    public void getAssignmentFile() {
+        ResponseEntity<Resource> resourceResponseEntity = restTemplate.withBasicAuth("6srinath", "password")
+                .exchange("/assignments/6-2022-CS001-002/file", HttpMethod.GET, null, Resource.class);
+        Assertions.assertTrue(resourceResponseEntity.getBody().getFilename().equals("6-2022-CS001-002-006-assignment-questions.txt"));
     }
 }
