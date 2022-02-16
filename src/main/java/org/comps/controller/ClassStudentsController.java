@@ -30,23 +30,23 @@ public class ClassStudentsController {
 
     private static Logger logger = LoggerFactory.getLogger(ClassStudentsController.class);
 
-    @PostMapping(value="/class-students/upload")
-    public Map<String, String> processUpload(@RequestParam MultipartFile file) throws IOException {
+    @PostMapping(value="/class-students/{classId}")
+    public Map<String, String> processUpload(@PathVariable String classId, @RequestParam MultipartFile file) throws IOException {
         logger.info("Received file [{}] for upload class students", file.getName());
+        boolean classExists = classService.existsById(classId);
+        if(!classExists) {
+            throw AppExceptions.resourceNotFound(String.format("Class: %s not found", classId));
+        }
+
         BufferedReader fileReader = new BufferedReader(new InputStreamReader(file.getInputStream(), "UTF-8"));
-        CSVParser csvParser = CSVFormat.DEFAULT.builder().setCommentMarker('#').setHeader("class_id", "student_id").build().parse(fileReader);
+        CSVParser csvParser = CSVFormat.DEFAULT.builder().setCommentMarker('#').setHeader("student_id").build().parse(fileReader);
         List<CSVRecord> records = csvParser.getRecords();
         StringBuilder errorMsg = new StringBuilder();
         int i = 0;
         for(CSVRecord record : records) {
             try {
                 i++;
-                String classId = record.get("class_id");
                 String studentId = record.get("student_id");
-                boolean classExists = classService.existsById(classId);
-                if(!classExists) {
-                    throw AppExceptions.resourceNotFound(String.format("Class: %s not found", classId));
-                }
                 boolean studentExists = userService.existsById(studentId);
                 if(!studentExists) {
                     throw AppExceptions.resourceNotFound(String.format("Student: %s not found", studentId));

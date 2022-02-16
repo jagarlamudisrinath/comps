@@ -31,7 +31,7 @@ public class ClassStudentControllerTest {
 
         HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<>(parameters, headers);
 
-        ResponseEntity<String> response = restTemplate.withBasicAuth("5srinath", "password").exchange("/class-students/upload", HttpMethod.POST, entity, String.class, "");
+        ResponseEntity<String> response = restTemplate.withBasicAuth("5srinath", "password").exchange("/class-students/5-CS", HttpMethod.POST, entity, String.class, "");
 
         // Expect Ok
         Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK);
