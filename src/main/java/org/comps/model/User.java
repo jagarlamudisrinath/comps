@@ -1,5 +1,6 @@
 package org.comps.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("users")
@@ -7,6 +8,7 @@ public class User extends BaseEntity {
     private String firstName;
     private String lastName;
     private String email;
+    @JsonIgnore
     private String password;
     private UserType type;
 

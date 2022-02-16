@@ -1,6 +1,8 @@
 package org.comps.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.comps.model.User;
+import org.comps.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,12 +17,15 @@ import java.util.Map;
 @Component
 public class AppAuthSuccessHandler implements AuthenticationSuccessHandler {
     @Autowired private ObjectMapper objectMapper;
+    @Autowired private UserService userService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException {
         UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-        Map<String, String> responseMap = Map.of("msg", "User logged-in successfully", "userId", userDetails.getUsername());
+        User user = userService.findById(userDetails.getUsername());
+        Map<String, Object> responseMap = Map.of("msg", "User logged-in successfully", "userId", userDetails.getUsername(),
+                "user", user);
         response.getWriter().println(objectMapper.writeValueAsString(responseMap));
     }
 }
