@@ -2,8 +2,10 @@ package org.comps.controller;
 
 import org.comps.errors.AppExceptions;
 import org.comps.model.Assignment;
+import org.comps.model.Group;
 import org.comps.service.AssignmentService;
 import org.comps.service.ClassService;
+import org.comps.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +23,7 @@ import java.util.UUID;
 public class AssignmentController {
     @Autowired private ClassService classService;
     @Autowired private AssignmentService assignmentService;
+    @Autowired private GroupService groupService;
 
     @PostMapping("/assignments")
     public Assignment createAssignment(@RequestPart Assignment assignment, @RequestParam(required = false) MultipartFile file) {
@@ -49,7 +52,28 @@ public class AssignmentController {
         assignment.setCreatedBy(userDetails.getUsername());
 
         assignmentService.save(assignment, file);
+
+        if(assignment.isNew()) {
+            createGroupsForAssignment(assignment);
+        }
         return assignment;
+    }
+
+    private void createGroupsForAssignment(Assignment assignment) {
+        for(int i = 0; i < assignment.getNoOfGroups(); i++) {
+            Group group = new Group();
+            group.setId(assignment.getId() + "-" + generateGroupId(i));
+            group.setAssignmentId(assignment.getId());
+            group.setGroupId(generateGroupId(i));
+            group.setActive(true);
+            group.setTitle(generateGroupId(i));
+            group.setNew(true);
+            groupService.save(group);
+        }
+    }
+
+    private String generateGroupId(int i) {
+        return "group" + (i + 1);
     }
 
     @GetMapping("/assignments/{assignmentId}/file")

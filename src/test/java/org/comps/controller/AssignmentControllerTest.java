@@ -2,6 +2,7 @@ package org.comps.controller;
 
 import org.comps.ChatengineApplication;
 import org.comps.model.Assignment;
+import org.comps.model.Group;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,10 @@ public class AssignmentControllerTest {
         ResponseEntity<Assignment> assignmentResponseEntity = restTemplate.withBasicAuth("6mark", "password")
                 .postForEntity("/assignments", entity, Assignment.class);
         Assertions.assertEquals(HttpStatus.OK, assignmentResponseEntity.getStatusCode());
+
+        ResponseEntity<List<Group>> groupResponseEntity = restTemplate.withBasicAuth("6mark", "password")
+                .exchange("/groups?assignmentId=6-2022-CS001-001", HttpMethod.GET, null, new ParameterizedTypeReference<List<Group>>(){});
+        Assertions.assertEquals(5, groupResponseEntity.getBody().size());
     }
 
     @Test
