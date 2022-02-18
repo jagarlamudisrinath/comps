@@ -19,10 +19,11 @@ public class AssignmentService {
     @Autowired private AssignmentRepository assignmentRepository;
     @Autowired private StorageService storageService;
 
-    public void save(Assignment assignment, MultipartFile file) {
+    public void save(Assignment assignment) {
+        MultipartFile file = assignment.getFile();
         if(file != null) {
             String fileName = assignment.getId() + "-" +file.getOriginalFilename();
-            assignment.setFile(fileName);
+            assignment.setFileName(fileName);
             storageService.store(file, fileName);
         }
         assignmentRepository.save(assignment);
@@ -34,10 +35,10 @@ public class AssignmentService {
         if(assignment == null) {
             throw AppExceptions.resourceNotFound(String.format("Assignment: %s not found", assignmentId));
         }
-        if(!StringUtils.hasText(assignment.getFile())) {
+        if(!StringUtils.hasText(assignment.getFileName())) {
             throw AppExceptions.resourceNotFound(String.format("Assignment: %s does not have a file uploaded", assignmentId));
         }
-        return storageService.loadAsResource(assignment.getFile());
+        return storageService.loadAsResource(assignment.getFileName());
     }
 
     public List<Assignment> findAllByClassId(String classId) {

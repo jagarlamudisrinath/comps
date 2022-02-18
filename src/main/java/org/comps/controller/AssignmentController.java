@@ -9,6 +9,7 @@ import org.comps.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,8 +26,8 @@ public class AssignmentController {
     @Autowired private AssignmentService assignmentService;
     @Autowired private GroupService groupService;
 
-    @PostMapping("/assignments")
-    public Assignment createAssignment(@RequestPart Assignment assignment, @RequestParam(required = false) MultipartFile file) {
+    @PostMapping(value ="/assignments", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public Assignment createAssignment(@ModelAttribute Assignment assignment) {
         boolean assignmentExists = classService.existsById(assignment.getClassId());
 
         if(!assignmentExists) {
@@ -51,7 +52,7 @@ public class AssignmentController {
         UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         assignment.setCreatedBy(userDetails.getUsername());
 
-        assignmentService.save(assignment, file);
+        assignmentService.save(assignment);
 
         if(assignment.isNew()) {
             createGroupsForAssignment(assignment);

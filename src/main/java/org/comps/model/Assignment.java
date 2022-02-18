@@ -1,15 +1,19 @@
 package org.comps.model;
 
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
+import org.springframework.web.multipart.MultipartFile;
 
 @Table("assignments")
 public class Assignment extends BaseEntity {
     private String classId;
     private String title;
     private String description;
-    private String file;
+    private String fileName;
     private String createdBy;
     private int    noOfGroups;
+    @Transient
+    private MultipartFile file;
 
     public String getClassId() {
         return classId;
@@ -27,12 +31,12 @@ public class Assignment extends BaseEntity {
         this.title = title;
     }
 
-    public String getFile() {
-        return file;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setFile(String file) {
-        this.file = file;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public String getCreatedBy() {
@@ -57,5 +61,13 @@ public class Assignment extends BaseEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
+    public MultipartFile getFile() {
+        return file;
     }
 }

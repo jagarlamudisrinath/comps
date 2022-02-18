@@ -11,6 +11,7 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.util.LinkedMultiValueMap;
@@ -25,16 +26,17 @@ public class AssignmentControllerTest {
 
     @Test
     public void createAssignment() {
-        Assignment assignment = new Assignment();
-        assignment.setClassId("6-2022-CS001");
-        assignment.setCreatedBy("6mark");
-        assignment.setTitle("What is Computers?");
-        assignment.setNoOfGroups(5);
-        assignment.setId("6-2022-CS001-001");
-
         LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<>();
-        parameters.add("file", new org.springframework.core.io.ClassPathResource("test-data/006-assignment-questions.txt"));
-        parameters.add("assignment", assignment);
+        parameters.add("classId", "6-2022-CS001");
+        parameters.add("createdBy", "mark");
+        parameters.add("title", "abc");
+        parameters.add("noOfGroups", 5);
+        parameters.add("id", "6-2022-CS001-001");
+        MockMultipartFile file = new MockMultipartFile(
+                "file",
+                "hello.txt",
+                MediaType.TEXT_PLAIN_VALUE,
+                "Explain Distributed systems?".getBytes());
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
