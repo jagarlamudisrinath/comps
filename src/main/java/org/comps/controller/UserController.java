@@ -75,8 +75,14 @@ public class UserController implements InitializingBean {
         }
     }
 
+    @GetMapping(value = "users/all")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
+
     @GetMapping(value = "users")
     public List<User> getUsersByType(@RequestParam UserType type) {
         return userService.findUserByType(type);
     }
+
 }

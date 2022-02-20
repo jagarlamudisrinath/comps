@@ -27,7 +27,7 @@ public class AssignmentController {
     @Autowired private GroupService groupService;
 
     @PostMapping(value ="/assignments", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public Assignment createAssignment(@ModelAttribute Assignment assignment) {
+    public void createAssignment(@ModelAttribute Assignment assignment) {
         boolean assignmentExists = classService.existsById(assignment.getClassId());
 
         if(!assignmentExists) {
@@ -57,7 +57,7 @@ public class AssignmentController {
         if(assignment.isNew()) {
             createGroupsForAssignment(assignment);
         }
-        return assignment;
+        //return assignment;
     }
 
     private void createGroupsForAssignment(Assignment assignment) {

@@ -32,6 +32,10 @@ public class UserService {
         return userRepository.findUsersByClassId(classId);
     }
 
+    public List<User> getAllUsers() {
+        return userRepository.getAllUsers();
+    }
+
     public List<User> findUserByType(UserType type) {
         return userRepository.findUsersByType(type);
     }
