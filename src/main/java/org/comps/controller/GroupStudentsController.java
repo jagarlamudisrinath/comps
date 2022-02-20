@@ -58,12 +58,14 @@ public class GroupStudentsController {
     }
 
     @DeleteMapping(value = "/group-students")
-    public void deleteGroupStudent(@RequestParam String groupId, @RequestParam String studentId) {
-        GroupStudent groupStudent = groupStudentService.findGroupStudent(groupId, studentId);
-        if(groupStudent == null) {
-            throw AppExceptions.resourceNotFound(String.format("No Resource with groupId: %s and studentId: %s", groupId, studentId));
+    public void deleteGroupStudent(@RequestBody List<GroupStudent> groupStudents) {
+        for(GroupStudent groupStudent : groupStudents) {
+            GroupStudent persistedGroupStudent = groupStudentService.findGroupStudent(groupStudent.getGroupId(), groupStudent.getStudentId());
+            if (persistedGroupStudent == null) {
+                throw AppExceptions.resourceNotFound(String.format("No Resource with groupId: %s and studentId: %s", groupStudent.getGroupId(), groupStudent.getStudentId()));
+            }
+            groupStudentService.delete(persistedGroupStudent);
         }
-        groupStudentService.delete(groupStudent);
     }
 
     @GetMapping(value = "/group-students", params = {"classId", "assignmentId"})
