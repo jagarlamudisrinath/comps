@@ -48,8 +48,12 @@ public class GroupStudentControllerTest {
 
     @Test
     public void deleteUserInGroups() {
+        GroupStudent groupStudent = new GroupStudent();
+        groupStudent.setGroupId("8-CS-8-AS-g3");
+        groupStudent.setStudentId("8mahesh");
+        HttpEntity<List<GroupStudent>> entity = new HttpEntity<>(List.of(groupStudent), new HttpHeaders());
         ResponseEntity<Void> deleteResponse = restTemplate.withBasicAuth("8srinath", "password")
-                .exchange("/group-students?groupId=8-CS-8-AS-g3&studentId=8mahesh", HttpMethod.DELETE, null, new ParameterizedTypeReference<Void>() {});
+                .exchange("/group-students", HttpMethod.DELETE, entity, new ParameterizedTypeReference<Void>() {});
         Assertions.assertEquals(HttpStatus.OK, deleteResponse.getStatusCode());
         ResponseEntity<List<User>> usersResponse = restTemplate.withBasicAuth("8srinath", "password")
                 .exchange("/group-students?groupId=8-CS-8-AS-g3", HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {});
