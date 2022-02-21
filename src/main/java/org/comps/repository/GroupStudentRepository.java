@@ -1,5 +1,6 @@
 package org.comps.repository;
 
+import org.comps.model.Group;
 import org.comps.model.GroupStudent;
 import org.comps.model.User;
 import org.springframework.data.jdbc.repository.query.Query;
@@ -18,5 +19,9 @@ public interface GroupStudentRepository extends CrudRepository<GroupStudent, Str
     @Query("SELECT * FROM users WHERE id in (select student_id from class_students where class_id = :classId)" +
             " and id not in (select student_id from group_students where group_id in (select id from groups where assignment_id = :assignmentId))")
     List<User> findUsersNotInAnyGroup(String classId, String assignmentId);
+
+    @Query("SELECT * FROM groups WHERE id in (select group_id from group_students where student_id = :studentId)" +
+            " and assignment_id = :assignmentId")
+    List<Group> findGroupsByAssignmentIdAndStudentId(String assignmentId, String studentId);
 
 }

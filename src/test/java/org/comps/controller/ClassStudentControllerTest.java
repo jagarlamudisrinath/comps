@@ -1,6 +1,7 @@
 package org.comps.controller;
 
 import org.comps.ChatengineApplication;
+import org.comps.model.Class;
 import org.comps.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -51,5 +52,12 @@ public class ClassStudentControllerTest {
         ResponseEntity<List<User>> userRespone = restTemplate.withBasicAuth("5srinath", "password")
                 .exchange("/class-students?classId=5-CS2", HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {});
         Assertions.assertEquals(1, userRespone.getBody().size());
+    }
+
+    @Test
+    public void findClassesByStudentId() {
+        ResponseEntity<List<Class>> classesResponse = restTemplate.withBasicAuth("5srinath", "password")
+                .exchange("/classes?studentId=5mahesh", HttpMethod.GET, null, new ParameterizedTypeReference<List<Class>>() {});
+        Assertions.assertTrue(classesResponse.getBody().size() > 0);
     }
 }

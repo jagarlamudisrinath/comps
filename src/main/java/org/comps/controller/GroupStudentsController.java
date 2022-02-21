@@ -73,6 +73,11 @@ public class GroupStudentsController {
         return groupStudentService.findUsersNotInAnyGroup(classId, assignmentId);
     }
 
+    @GetMapping(value = "/group-students", params = {"assignmentId", "studentId"})
+    public List<Group> findGroupsByAssignmentIdAndStudentId(@RequestParam String assignmentId, @RequestParam String studentId) {
+        return groupStudentService.findGroupsByAssignmentIdAndStudentId(assignmentId, studentId);
+    }
+
     @GetMapping(value = "/group-students", params = {"groupId"})
     public List<User> findUsersInGroup(@RequestParam String groupId) {
         return groupStudentService.findUsersInGroup(groupId);

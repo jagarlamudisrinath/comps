@@ -1,6 +1,7 @@
 package org.comps.controller;
 
 import org.comps.ChatengineApplication;
+import org.comps.model.Group;
 import org.comps.model.GroupStudent;
 import org.comps.model.User;
 import org.junit.jupiter.api.Assertions;
@@ -49,14 +50,14 @@ public class GroupStudentControllerTest {
     @Test
     public void deleteUserInGroups() {
         GroupStudent groupStudent = new GroupStudent();
-        groupStudent.setGroupId("8-CS-8-AS-g3");
+        groupStudent.setGroupId("8-CS-8-AS-g2");
         groupStudent.setStudentId("8mahesh");
         HttpEntity<List<GroupStudent>> entity = new HttpEntity<>(List.of(groupStudent), new HttpHeaders());
         ResponseEntity<Void> deleteResponse = restTemplate.withBasicAuth("8srinath", "password")
                 .exchange("/group-students", HttpMethod.DELETE, entity, new ParameterizedTypeReference<Void>() {});
         Assertions.assertEquals(HttpStatus.OK, deleteResponse.getStatusCode());
         ResponseEntity<List<User>> usersResponse = restTemplate.withBasicAuth("8srinath", "password")
-                .exchange("/group-students?groupId=8-CS-8-AS-g3", HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {});
+                .exchange("/group-students?groupId=8-CS-8-AS-g2", HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {});
         Assertions.assertEquals(0, usersResponse.getBody().size());
     }
 
@@ -64,7 +65,14 @@ public class GroupStudentControllerTest {
     public void findUsersNotInAnyGroup() {
         ResponseEntity<List<User>> usersResponse = restTemplate.withBasicAuth("8srinath", "password")
                 .exchange("/group-students?classId=8-CS&assignmentId=8-CS-8-AS", HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {});
-        Assertions.assertEquals(4, usersResponse.getBody().size());
+        Assertions.assertEquals(5, usersResponse.getBody().size());
+    }
+
+    @Test
+    public void findGroupsByAssignmentIdAndStudentId() {
+        ResponseEntity<List<Group>> groupsResponse = restTemplate.withBasicAuth("8srinath", "password")
+                .exchange("/group-students?assignmentId=8-CS-8-AS2&studentId=8mahesh", HttpMethod.GET, null, new ParameterizedTypeReference<List<Group>>() {});
+        Assertions.assertEquals(2, groupsResponse.getBody().size());
     }
 
     @Test

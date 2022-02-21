@@ -1,5 +1,6 @@
 package org.comps.service;
 
+import org.comps.model.Group;
 import org.comps.model.GroupStudent;
 import org.comps.model.User;
 import org.comps.repository.GroupStudentRepository;
@@ -20,6 +21,10 @@ public class GroupStudentService {
 
     public List<User> findUsersNotInAnyGroup(String classId, String assignmentId) {
         return groupStudentRepository.findUsersNotInAnyGroup(classId, assignmentId);
+    }
+
+    public List<Group> findGroupsByAssignmentIdAndStudentId(String assignmentId, String studentId) {
+        return groupStudentRepository.findGroupsByAssignmentIdAndStudentId(assignmentId, studentId);
     }
 
     public List<User> findUsersInGroup(String groupId) {

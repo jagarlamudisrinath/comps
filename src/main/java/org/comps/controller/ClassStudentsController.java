@@ -4,6 +4,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.comps.errors.AppExceptions;
+import org.comps.model.Class;
 import org.comps.model.ClassStudent;
 import org.comps.model.User;
 import org.comps.service.ClassService;
@@ -77,6 +78,11 @@ public class ClassStudentsController {
     @GetMapping(value = "/class-students", params = {"classId"})
     public List<User> findUsersByClassId(@RequestParam String classId) {
         return userService.findUsersByClassId(classId);
+    }
+
+    @GetMapping(value = "/classes", params = {"studentId"})
+    public List<Class> findClassesByStudentId(@RequestParam String studentId) {
+        return classStudentService.findClassesByStudentId(studentId);
     }
 
     @DeleteMapping(value = "/class-students")

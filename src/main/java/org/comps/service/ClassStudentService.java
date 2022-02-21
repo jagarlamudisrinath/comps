@@ -1,5 +1,6 @@
 package org.comps.service;
 
+import org.comps.model.Class;
 import org.comps.model.ClassStudent;
 import org.comps.repository.ClassStudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class ClassStudentService {
     public ClassStudent findByClassIdAndStudentId(String classId, String studentId) {
         List<ClassStudent> allByClassIdAndStudentId = classStudentRepository.findAllByClassIdAndStudentId(classId, studentId);
         return allByClassIdAndStudentId.isEmpty() ? null : allByClassIdAndStudentId.get(0);
+    }
+
+    public List<Class> findClassesByStudentId(String studentId) {
+        return classStudentRepository.findClassesByStudentId(studentId);
     }
 
     public void delete(String classId, String studentId) {
