@@ -7,11 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
+import org.springframework.messaging.support.GenericMessage;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class WebSocketEventListener {
@@ -27,8 +31,20 @@ public class WebSocketEventListener {
     }
 
     private void saveAndSendMessage(StompHeaderAccessor headerAccessor, ChatMessage.MessageType messageType) {
-        String username = (String) headerAccessor.getSessionAttributes().get("userId");
-        String chatId = (String) headerAccessor.getSessionAttributes().get("chatId");
+        String username = null;
+        if (headerAccessor.getMessageHeaders().containsKey("simpUser")) {
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = (UsernamePasswordAuthenticationToken)headerAccessor.getMessageHeaders().get("simpUser");
+            username = usernamePasswordAuthenticationToken.getName();
+        }
+
+        String chatId = null;
+        if(headerAccessor.getMessageHeaders().containsKey("simpConnectMessage")) {
+            GenericMessage msg = (GenericMessage)headerAccessor.getMessageHeaders().get("simpConnectMessage");
+            if(msg.getHeaders().containsKey("nativeHeaders")) {
+                Map<String, List<String>> nativeHeaders = (Map<String, List<String>>) msg.getHeaders().get("nativeHeaders");
+                chatId = nativeHeaders.get("groupId").get(0);
+            }
+        }
         if (username != null && chatId != null) {
             logger.info ("user {} connected", username);
             ChatMessage message = new ChatMessage();
