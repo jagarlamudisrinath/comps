@@ -8,6 +8,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,7 @@ import java.util.UUID;
 
 @RestController
 public class ChatController {
-    @Autowired private SimpMessagingTemplate messagingTemplate;
+    @Autowired private SimpMessageSendingOperations messageSendingOperations;
     @Autowired private ChatMessageService chatMessageService;
 
     @MessageMapping("/chat")
@@ -30,8 +31,7 @@ public class ChatController {
         message.setType(ChatMessage.MessageType.CHAT);
         message.setNew(true);
         chatMessageService.save(message);
-        messagingTemplate.convertAndSendToUser(message.getChatId(),
-                "/topic/" + message.getChatId(), message);
+        messageSendingOperations.convertAndSend("/topic/" + message.getChatId(), message);
     }
 
     @GetMapping("/messages/{groupId}")

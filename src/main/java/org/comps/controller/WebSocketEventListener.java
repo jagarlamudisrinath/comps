@@ -1,6 +1,7 @@
 package org.comps.controller;
 
 import org.comps.model.ChatMessage;
+import org.comps.service.ChatMessageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,14 @@ import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Component
 public class WebSocketEventListener {
     private static final Logger logger = LoggerFactory.getLogger(WebSocketEventListener.class);
 
-    @Autowired
-    private SimpMessageSendingOperations messageSendingOperations;
+    @Autowired private SimpMessageSendingOperations messageSendingOperations;
+    @Autowired private ChatMessageService chatMessageService;
 
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectedEvent event) {
@@ -55,9 +57,12 @@ public class WebSocketEventListener {
                 message.setType(messageType);
                 message.setContent("User left");
             }
+            message.setChatId(chatId);
             message.setNew(true);
             message.setSender(username);
             message.setCreatedOn(new Date());
+            message.setId(UUID.randomUUID().toString());
+            chatMessageService.save(message);
             messageSendingOperations.convertAndSend("/topic/" + chatId, message);
         }
     }
