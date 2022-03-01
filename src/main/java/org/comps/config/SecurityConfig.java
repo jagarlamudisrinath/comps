@@ -15,7 +15,7 @@ import java.util.List;
 
 @EnableWebSecurity
 public class SecurityConfig  extends WebSecurityConfigurerAdapter {
-    private static String[] staticResources = {"/test", "/ws", "/chat", "/**/websocket"};
+    private static String[] staticResources = {"/ws", "/chat", "/**/websocket", "/assignments/**/file"};
     @Autowired private AppAuthSuccessHandler authSuccessHandler;
 
     @Override
