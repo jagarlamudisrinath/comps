@@ -13,9 +13,9 @@ clone the comps backend repo to the linux server.
 ##Steps to set up Database.
 
 1. Create a database chat_engine in postgresql DB.
-2. Execute the ddl.sql and dml.sql scripts on chat_engine db.
-3. create a postgres db user and password and grant the full permissions on chat_engine database.
-4. ddl.sql and dml.sql files are located in source code. src/main/resources/db/postgres
+2. ddl.sql and dml.sql files are located in source code. src/main/resources/db/postgres
+3. Execute the ddl.sql and dml.sql scripts on chat_engine db.
+4. create a postgres db user and password and grant the full permissions on chat_engine database.
 
 
 ##Steps to set up application server.
