@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS GROUP_DISCUSSIONS
     CONTENT    TEXT                        NOT NULL,
     SENDER     TEXT                        REFERENCES USERS(ID) NOT NULL,
     TYPE       TEXT,
-    CREATED_ON DATE                        NOT NULL
+    CREATED_ON TIMESTAMP                        NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS ASSIGNMENT_ANSWER
