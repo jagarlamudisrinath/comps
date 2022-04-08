@@ -1,5 +1,6 @@
 package org.comps.model;
 
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Date;
@@ -11,6 +12,8 @@ public class ChatMessage extends BaseEntity {
     private String sender;
     private Date   createdOn;
     private MessageType type;
+    @Transient
+    private boolean persist;
 
     public MessageType getType() {
         return type;
@@ -54,5 +57,13 @@ public class ChatMessage extends BaseEntity {
 
     public enum MessageType {
         JOIN, CHAT, LEAVE
+    }
+
+    public boolean isPersist() {
+        return persist;
+    }
+
+    public void setPersist(boolean persist) {
+        this.persist = persist;
     }
 }

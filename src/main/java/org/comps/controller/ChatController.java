@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,12 +26,17 @@ public class ChatController {
 
     @MessageMapping("/chat")
     public void processMessage(@Payload ChatMessage message) {
-        message.setId(UUID.randomUUID().toString());
-        message.setCreatedOn(new Date());
+        if(!StringUtils.hasText(message.getId())) {
+            message.setId(UUID.randomUUID().toString());
+        }
         message.setType(ChatMessage.MessageType.CHAT);
+        message.setCreatedOn(new Date());
         message.setNew(true);
-        chatMessageService.save(message);
-        messageSendingOperations.convertAndSend("/topic/" + message.getChatId(), message);
+        if(message.isPersist()) {
+            chatMessageService.save(message);
+        } else {
+            messageSendingOperations.convertAndSend("/topic/" + message.getChatId(), message);
+        }
     }
 
     @GetMapping("/messages/{groupId}")
