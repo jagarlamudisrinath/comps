@@ -36,7 +36,6 @@ public class ChatController {
         } else {
             messageSendingOperations.convertAndSend("/topic/" + message.getChatId(), message);
         }
-        fileWritingService.sendMessageToFile(message);
     }
 
     @DeleteMapping("/chat/{groupId}")
@@ -51,6 +50,7 @@ public class ChatController {
         message.setNew(true);
         chatMessageService.save(message);
         messageSendingOperations.convertAndSend("/topic/" + message.getChatId(), message);
+        fileWritingService.sendMessageToFile(message);
     }
 
     @GetMapping("/messages/{groupId}")
