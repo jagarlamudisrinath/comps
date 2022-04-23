@@ -1,10 +1,13 @@
 package org.comps.model;
 
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.Date;
 
+@XmlRootElement(name = "message")
 @Table("group_discussions")
 public class ChatMessage extends BaseEntity {
     private String chatId;
@@ -12,9 +15,9 @@ public class ChatMessage extends BaseEntity {
     private String sender;
     private Date   createdOn;
     private MessageType type;
-    @Transient
     private boolean persist;
 
+    @XmlAttribute
     public MessageType getType() {
         return type;
     }
@@ -31,6 +34,7 @@ public class ChatMessage extends BaseEntity {
         this.content = content;
     }
 
+    @XmlAttribute
     public String getSender() {
         return sender;
     }
@@ -39,6 +43,7 @@ public class ChatMessage extends BaseEntity {
         this.sender = sender;
     }
 
+    @XmlAttribute(name = "groupId")
     public String getChatId() {
         return chatId;
     }
@@ -47,6 +52,7 @@ public class ChatMessage extends BaseEntity {
         this.chatId = chatId;
     }
 
+    @XmlAttribute
     public Date getCreatedOn() {
         return createdOn;
     }
@@ -56,9 +62,10 @@ public class ChatMessage extends BaseEntity {
     }
 
     public enum MessageType {
-        JOIN, CHAT, LEAVE
+        JOINED, CHAT, LEFT
     }
 
+    @XmlTransient
     public boolean isPersist() {
         return persist;
     }

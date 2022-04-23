@@ -12,5 +12,4 @@ public class ChatengineApplication {
     public static void main(String[] args) {
         SpringApplication.run(ChatengineApplication.class, args);
     }
-
 }

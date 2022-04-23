@@ -1,7 +1,9 @@
 package org.comps.controller;
 
+import org.comps.config.FileWritingConfiguration;
 import org.comps.model.ChatMessage;
 import org.comps.service.ChatMessageService;
+import org.comps.service.FileWritingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,12 @@ public class WebSocketEventListener {
 
     @Autowired private SimpMessageSendingOperations messageSendingOperations;
     @Autowired private ChatMessageService chatMessageService;
+    @Autowired private FileWritingService fileWritingService;
 
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectedEvent event) {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-        saveAndSendMessage(headerAccessor, ChatMessage.MessageType.JOIN);
+        saveAndSendMessage(headerAccessor, ChatMessage.MessageType.JOINED);
     }
 
     private void saveAndSendMessage(StompHeaderAccessor headerAccessor, ChatMessage.MessageType messageType) {
@@ -50,10 +53,10 @@ public class WebSocketEventListener {
         if (username != null && chatId != null) {
             logger.info ("user {} connected", username);
             ChatMessage message = new ChatMessage();
-            if(messageType == ChatMessage.MessageType.JOIN) {
+            if(messageType == ChatMessage.MessageType.JOINED) {
                 message.setType(messageType);
                 message.setContent("User joined");
-            } else if(messageType == ChatMessage.MessageType.LEAVE) {
+            } else if(messageType == ChatMessage.MessageType.LEFT) {
                 message.setType(messageType);
                 message.setContent("User left");
             }
@@ -64,12 +67,13 @@ public class WebSocketEventListener {
             message.setId(UUID.randomUUID().toString());
             chatMessageService.save(message);
             messageSendingOperations.convertAndSend("/topic/" + chatId, message);
+            fileWritingService.sendMessageToFile(message);
         }
     }
 
     @EventListener
     public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-        saveAndSendMessage(headerAccessor, ChatMessage.MessageType.LEAVE);
+        saveAndSendMessage(headerAccessor, ChatMessage.MessageType.LEFT);
     }
 }

@@ -2,6 +2,7 @@ package org.comps.controller;
 
 import org.comps.model.ChatMessage;
 import org.comps.service.ChatMessageService;
+import org.comps.service.FileWritingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -10,10 +11,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -23,6 +21,7 @@ import java.util.UUID;
 public class ChatController {
     @Autowired private SimpMessageSendingOperations messageSendingOperations;
     @Autowired private ChatMessageService chatMessageService;
+    @Autowired private FileWritingService fileWritingService;
 
     @MessageMapping("/chat")
     public void processMessage(@Payload ChatMessage message) {
@@ -37,6 +36,19 @@ public class ChatController {
         } else {
             messageSendingOperations.convertAndSend("/topic/" + message.getChatId(), message);
         }
+        fileWritingService.sendMessageToFile(message);
+    }
+
+    @DeleteMapping("/chat/{groupId}")
+    public void leaveChat(@PathVariable String chatId) {
+        ChatMessage message = new ChatMessage();
+        message.setId(UUID.randomUUID().toString());
+        message.setChatId(chatId);
+        message.setContent("User left");
+        message.setType(ChatMessage.MessageType.LEFT);
+        message.setCreatedOn(new Date());
+        chatMessageService.save(message);
+        messageSendingOperations.convertAndSend("/topic/" + message.getChatId(), message);
     }
 
     @GetMapping("/messages/{groupId}")
