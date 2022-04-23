@@ -47,6 +47,8 @@ public class ChatController {
         message.setContent("User left");
         message.setType(ChatMessage.MessageType.LEFT);
         message.setCreatedOn(new Date());
+        message.setPersist(true);
+        message.setNew(true);
         chatMessageService.save(message);
         messageSendingOperations.convertAndSend("/topic/" + message.getChatId(), message);
     }
