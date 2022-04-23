@@ -44,7 +44,7 @@ public class FileWritingConfiguration {
     }
 
     @Bean
-    public FileWritingMessageHandler fileWriter(@Value("${msgs.dir:test}") String msgsDir) {
+    public FileWritingMessageHandler fileWriter(@Value("${msgs.dir:output-xmls}") String msgsDir) {
         FileWritingMessageHandler writer = new FileWritingMessageHandler(new File(msgsDir));
         writer.setExpectReply(false);
         writer.setFileExistsMode(FileExistsMode.APPEND_NO_FLUSH);

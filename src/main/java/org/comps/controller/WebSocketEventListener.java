@@ -1,6 +1,5 @@
 package org.comps.controller;
 
-import org.comps.config.FileWritingConfiguration;
 import org.comps.model.ChatMessage;
 import org.comps.service.ChatMessageService;
 import org.comps.service.FileWritingService;
