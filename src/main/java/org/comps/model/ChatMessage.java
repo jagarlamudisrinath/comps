@@ -1,5 +1,6 @@
 package org.comps.model;
 
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Date;
@@ -11,6 +12,7 @@ public class ChatMessage extends BaseEntity {
     private String sender;
     private Date   createdOn;
     private MessageType type;
+    @Transient
     private boolean persist;
 
     public MessageType getType() {
