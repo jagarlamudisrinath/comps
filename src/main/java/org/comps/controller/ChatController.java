@@ -35,6 +35,7 @@ public class ChatController {
             chatMessageService.save(message);
         } else {
             messageSendingOperations.convertAndSend("/topic/" + message.getChatId(), message);
+            fileWritingService.sendMessageToInputChannel(message);
         }
     }
 
