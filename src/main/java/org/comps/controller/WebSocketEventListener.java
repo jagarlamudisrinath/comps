@@ -2,7 +2,7 @@ package org.comps.controller;
 
 import org.comps.model.ChatMessage;
 import org.comps.service.ChatMessageService;
-import org.comps.service.FileWritingService;
+import org.comps.service.InputChannelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class WebSocketEventListener {
 
     @Autowired private SimpMessageSendingOperations messageSendingOperations;
     @Autowired private ChatMessageService chatMessageService;
-    @Autowired private FileWritingService fileWritingService;
+    @Autowired private InputChannelService fileWritingService;
 
     @EventListener
     public void handleWebSocketConnectListener(SessionConnectedEvent event) {
@@ -66,7 +66,7 @@ public class WebSocketEventListener {
             message.setId(UUID.randomUUID().toString());
             chatMessageService.save(message);
             messageSendingOperations.convertAndSend("/topic/" + chatId, message);
-            fileWritingService.sendMessageToFile(message);
+            fileWritingService.sendMessageToInputChannel(message);
         }
     }
 

@@ -2,7 +2,7 @@ package org.comps.controller;
 
 import org.comps.model.ChatMessage;
 import org.comps.service.ChatMessageService;
-import org.comps.service.FileWritingService;
+import org.comps.service.InputChannelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,7 +21,7 @@ import java.util.UUID;
 public class ChatController {
     @Autowired private SimpMessageSendingOperations messageSendingOperations;
     @Autowired private ChatMessageService chatMessageService;
-    @Autowired private FileWritingService fileWritingService;
+    @Autowired private InputChannelService fileWritingService;
 
     @MessageMapping("/chat")
     public void processMessage(@Payload ChatMessage message) {
@@ -50,7 +50,7 @@ public class ChatController {
         message.setNew(true);
         chatMessageService.save(message);
         messageSendingOperations.convertAndSend("/topic/" + message.getChatId(), message);
-        fileWritingService.sendMessageToFile(message);
+        fileWritingService.sendMessageToInputChannel(message);
     }
 
     @GetMapping("/messages/{groupId}")
