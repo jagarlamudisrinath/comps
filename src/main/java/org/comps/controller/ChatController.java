@@ -39,10 +39,11 @@ public class ChatController {
         }
     }
 
-    @DeleteMapping("/chat/{groupId}")
-    public void leaveChat(@PathVariable String chatId) {
+    @DeleteMapping("/chat")
+    public void leaveChat(@RequestParam String chatId, @RequestParam String sender) {
         ChatMessage message = new ChatMessage();
         message.setId(UUID.randomUUID().toString());
+        message.setSender(sender);
         message.setChatId(chatId);
         message.setContent("User left");
         message.setType(ChatMessage.MessageType.LEFT);
